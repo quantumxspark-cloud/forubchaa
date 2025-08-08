@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Riya - From Ravi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffeef8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #4a4a4a;
+            position: relative; /* For positioning fireworks */
+        }
+        .dancing-font { font-family: 'Dancing Script', cursive; }
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #ff0, #f00);
+            border-radius: 50%;
+            animation: explode 0.6s forwards;
+        }
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: radial-gradient(circle, #ff0, #f00);
+            border-radius: 50%;
+            animation: particle-animation 0.8s forwards;
+        }
+        @keyframes particle-animation {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
+        .candle {
+            position: relative;
+            width: 40px;
+            height: 180px;
+            background-color: #f8d7a8; /* Candle color */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            overflow: hidden; /* To hide the wax drips */
+        }
+        .candle::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background-color: #ffcc00; /* Flame color */
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            animation: flicker 1s infinite alternate;
+        }
+        .candle::after {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: #ffcc00; /* Second flame color */
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            animation: flicker 1s infinite alternate;
+            animation-delay: 0.2s; /* Slight delay for the second flame */
+        }
+        @keyframes flicker {
+            0% {
+                transform: translateX(-50%) scale(1);
+            }
+            100% {
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+        .wax-drip {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 20px;
+            background-color: #f8d7a8; /* Candle color */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: drip 2s infinite;
+        }
+        @keyframes drip {
+            0% {
+                height: 20px;
+                opacity: 1;
+            }
+            50% {
+                height: 30px;
+                opacity: 0.8;
+            }
+            100% {
+                height: 20px;
+                opacity: 1;
+            }
+        }
+        .candle:hover::before,
+        .candle:hover::after {
+            background-color: #ffdd00; /* Change flame color on hover */
+        }
+        .spark {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, #ffcc00, transparent);
+            border-radius: 50%;
+            animation: spark-animation 1s forwards;
+        }
+        @keyframes spark-animation {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center py-8 px-4">
+    <div class="particles-container" id="stars"></div>
+    
+    <div class="text-center mb-12">
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-4 md:p-6 rounded-xl shadow-lg inline-block mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold text-white dancing-font mb-2">Happy Birthday Riya ❤️</h1>
+            <p class="text-lg text-white/90">From your <span class="text-white font-medium">Ravi{ur spark}</span></p>
+        </div>
+    </div>
+    
+    <!-- Heart + Envelope -->
+    <div class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 mb-16">
+        <div class="flex flex-col items-center">
+            <div class="heart heartbeat mb-4"></div>
+            <p class="text-lg font-medium text-gray-700 text-center max-w-md">Distance means so little when someone means so much.<br>Even miles apart, you're always in my heart.</p>
+        </div>
+        
+        <div class="envelope" id="envelope">
+            <div class="letter">
+                <h3 class="text-lg font-bold text-pink-500 mb-2 dancing-font">To My Dearest Riya,</h3>
+                <p class="mb-3">Wishing you the happiest of birthdays today, tomorrow, and all the days to come.</p>
+                <p class="mb-3">Though we're apart today, know that I'm thinking of you every moment and can't wait until we're together again.</p>
+                <p class="font-medium dancing-font text-right">Yours always,<br>Ravi{ur spark}</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Candle -->
+    <div class="text-center mb-4">
+        <p class="text-lg mb-4">Light a candle to celebrate your special day:</p>
+        <div class="candle" id="candle" onclick="createSparks()">
+            <div class="wax-drip"></div>
+        </div>
+        <button onclick="makeAWish()" class="mt-8 px-6 py-3 bg-pink-500 text-white font-medium rounded-full shadow-lg hover:bg-pink-600 transition-all">Make A Wish</button>
+    </div>
+
+    <!-- Message -->
+    <div class="message-box my-12" id="distanceMessage">
+        <h3 class="text-2xl font-bold text-center text-pink-500 mb-4 dancing-font">To the Most Amazing Girlfriend</h3>
+        <p class="mb-4">On your special day, I want you to know how incredibly proud I am to call you mine. Your strength, your kindness, and your beautiful soul inspire me every day.</p>
+        <p class="mb-4">This long distance might keep us physically apart, but nothing can diminish the brightness you bring to my life. Each day with you, even miles apart, is a gift.</p>
+        <p class="text-center font-medium">Wishing you endless happiness, unforgettable adventures,<br>and dreams that turn into reality.<br>Happy Birthday Riya!</p>
+    </div>
+    
+    <!-- Photo + Video -->
+    <div class="w-full max-w-6xl mx-auto mb-16 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+        <div class="relative flex">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-pink-100/40 to-pink-200/40 z-10 rounded-xl"></div>
+            <img src="https://i.postimg.cc/sxqr8X9F/Screenshot-2025-08-08-160054.png" alt="Happy Birthday Riya" class="w-full h-[300px] object-cover md:h-[420px] max-w-md mx-auto rounded-xl shadow-xl z-0"/>
+            <div class="absolute inset-0 flex items-center justify-center z-20 p-4 text-center">
+                <h2 class="text-3xl font-bold text-white dancing-font drop-shadow-lg">Happy Birthday Riya ❤️</h2>
+            </div>
+        </div>
+        
+        <div class="bg-gray-100 rounded-xl shadow-xl overflow-hidden flex">
+            <video controls autoplay loop class="w-full h-[300px] md:h-[400px] object-cover rounded-xl">
+                <source src="https://github.com/quantumxspark-cloud/cat/raw/refs/heads/main/cat.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    
+    <!-- Background Music (Autoplay) -->
+    <div class="bg-pink-100 rounded-full p-3 mb-6">
+      <audio id="bgMusic" loop autoplay>
+        <source src="https://github.com/quantumxspark-cloud/tum/raw/refs/heads/main/Tum%20Se%20Hi%20Jab%20We%20Met%20128%20Kbps%20(mp3cut.net).mp3#t=60" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <footer class="text-center text-gray-500 text-sm mt-8">
+        <p>Made with love by Ravi for Riya's special day ❤️</p>
+        <p>Even the greatest distance cannot diminish true love.</p>
+    </footer>
+
+    <script>
+        // Envelope interaction
+        const envelope = document.getElementById('envelope');
+        envelope.addEventListener('click', function() {
+            this.classList.toggle('open');
+        });
+        
+        // Create sparks around the candle
+        function createSparks() {
+            for (let i = 0; i < 10; i++) {
+                const spark = document.createElement('div');
+                spark.classList.add('spark');
+                const angle = Math.random() * 2 * Math.PI; // Random angle
+                const distance = Math.random() * 20 + 10; // Random distance
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+
+                spark.style.setProperty('--x', `${x}px`);
+                spark.style.setProperty('--y', `${y}px`);
+                spark.style.left = '50%';
+                spark.style.top = '50%';
+                document.body.appendChild(spark);
+
+                // Remove spark after animation
+                setTimeout(() => {
+                    spark.remove();
+                }, 1000);
+            }
+        }
+
+        // Make a wish
+        function makeAWish() {
+            document.getElementById('distanceMessage').classList.add('visible');
+            createMultipleCrackers();
+        }
+
+        // Create multiple cracker effects
+        function createMultipleCrackers() {
+            const crackerCount = 10; // Number of crackers
+            for (let i = 0; i < crackerCount; i++) {
+                createFirework();
+            }
+        }
+
+        // Create firework effect
+        function createFirework() {
+            const fireworkCount = 30; // Number of particles
+            const centerX = Math.random() * window.innerWidth; // Random horizontal position
+            const centerY = Math.random() * window.innerHeight; // Random vertical position
+
+            for (let i = 0; i < fireworkCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const angle = Math.random() * 2 * Math.PI; // Random angle
+                const distance = Math.random() * 100 + 50; // Random distance
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+
+                particle.style.setProperty('--x', `${x}px`);
+                particle.style.setProperty('--y', `${y}px`);
+                particle.style.left = `${centerX}px`;
+                particle.style.top = `${centerY}px`;
+                document.body.appendChild(particle);
+
+                // Remove particle after animation
+                setTimeout(() => {
+                    particle.remove();
+                }, 800);
+            }
+        }
+
+        // Autoplay for music
+        window.addEventListener('load', function() {
+            const music = document.getElementById('bgMusic');
+            music.muted = true; // allow autoplay
+            let playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    setTimeout(() => {
+                        music.muted = false;
+                    }, 500);
+                }).catch(error => {
+                    console.warn('Autoplay blocked:', error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
